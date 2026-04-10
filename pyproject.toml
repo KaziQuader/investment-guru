@@ -8,15 +8,19 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.11,<3.14"
 dependencies = [
-    "zenml (>=0.94.2,<0.95.0)",
     "python-dotenv (>=1.2.2,<2.0.0)",
     "pymongo (>=4.16.0,<5.0.0)",
     "qdrant-client (>=1.17.1,<2.0.0)",
-    "huggingface-hub (>=1.10.0,<2.0.0)"
+    "huggingface-hub (>=1.10.0,<2.0.0)",
+    "zenml[server] (==0.94.2)"
 ]
 
 [tool.poetry]
-packages = [{include = "investment_guru", from = "src"}]
+packages = [
+    {include = "steps"},
+    {include = "pipelines"},
+    {include = "tools"}
+]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
@@ -27,5 +31,10 @@ dev = [
     "poethepoet (>=0.44.0,<0.45.0)"
 ]
 
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
 [tool.poe.tasks]
 test_connections = "python tests/test_connections.py"
+run_feature_pipeline = {cmd = "python pipelines/feature_pipeline.py", cwd = "."}
+dashboard = "zenml login --local"

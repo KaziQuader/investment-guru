@@ -21,3 +21,11 @@ packages = [{include = "investment_guru", from = "src"}]
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+dev = [
+    "poethepoet (>=0.44.0,<0.45.0)"
+]
+
+[tool.poe.tasks]
+test_connections = "python tests/test_connections.py"

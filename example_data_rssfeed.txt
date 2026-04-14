@@ -1,0 +1,58 @@
+==================================================
+RSS NEWS
+==================================================
+=== FEED KEYS ===
+dict_keys(['bozo', 'entries', 'feed', 'headers', 'etag', 'updated', 'updated_parsed', 'href', 'status', 'encoding', 'version', 'namespaces'])
+
+=== FIRST ENTRY KEYS ===
+dict_keys(['title', 'title_detail', 'links', 'link', 'published', 'published_parsed', 'source', 'id', 'guidislink', 'media_content', 'media_credit', 'credit'])
+
+=== FIRST ENTRY FULL ===
+{
+  "title": "The Artificial Intelligence (AI) Stock Market Is Sending Mixed Signals Right Now. Here's How I'm Reading Them.",
+  "title_detail": {
+    "type": "text/plain",
+    "language": null,
+    "base": "https://finance.yahoo.com/news/rssindex",
+    "value": "The Artificial Intelligence (AI) Stock Market Is Sending Mixed Signals Right Now. Here's How I'm Reading Them."
+  },
+  "links": [
+    {
+      "rel": "alternate",
+      "type": "text/html",
+      "href": "https://finance.yahoo.com/markets/stocks/articles/artificial-intelligence-ai-stock-market-163500723.html"
+    }
+  ],
+  "link": "https://finance.yahoo.com/markets/stocks/articles/artificial-intelligence-ai-stock-market-163500723.html",
+  "published": "2026-04-12T16:35:00Z",
+  "published_parsed": [
+    2026,
+    4,
+    12,
+    16,
+    35,
+    0,
+    6,
+    102,
+    0
+  ],
+  "source": {
+    "href": "http://www.fool.com/",
+    "title": "Motley Fool"
+  },
+  "id": "artificial-intelligence-ai-stock-market-163500723.html",
+  "guidislink": false,
+  "media_content": [
+    {
+      "height": "86",
+      "url": "https://media.zenfs.com/en/motleyfool.com/bdf9b9217d3fa778066510fa5abd1b7d",
+      "width": "130"
+    }
+  ],
+  "media_credit": [
+    {
+      "role": "publishing company"
+    }
+  ],
+  "credit": ""
+}

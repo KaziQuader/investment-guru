@@ -16,7 +16,10 @@ dependencies = [
     "yfinance (>=1.2.2,<2.0.0)",
     "feedparser (>=6.0.12,<7.0.0)",
     "sec-edgar-downloader (>=5.1.0,<6.0.0)",
-    "beanie (>=2.1.0,<3.0.0)"
+    "beanie (>=2.1.0,<3.0.0)",
+    "mongomock (>=4.3.0,<5.0.0)",
+    "mongomock-motor (>=0.0.36,<0.0.37)",
+    "motor (>=3.7.1,<4.0.0)"
 ]
 
 [tool.poetry]
@@ -39,10 +42,15 @@ dev = [
 pythonpath = ["."]
 
 [tool.poe.tasks]
-test_connections = "python tests/test_connections.py"
 run_feature_pipeline = {cmd = "python pipelines/feature_pipeline.py", cwd = "."}
 dashboard = "zenml login --local"
 
 # One off scripts
 analyse_sec = "python code_snippets/analyse_sec.py"
 analyse_stock_feeds = "python code_snippets/analyse_stock_feeds.py"
+stock_crawler = "python investement_guru/application/crawlers/stock_crawler.py"
+
+# Tests
+test_news_crawler = "python tests/test_news_crawler.py"
+test_stock_crawler = "python tests/test_stock_crawler.py"
+test_connections = "python tests/test_connections.py"

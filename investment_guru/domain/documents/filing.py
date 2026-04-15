@@ -1,4 +1,4 @@
-from investement_guru.domain.types import DataCategory
+from investment_guru.domain.types import DataCategory
 from pydantic import Field
 from datetime import datetime
 from beanie import Document

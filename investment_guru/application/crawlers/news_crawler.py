@@ -4,8 +4,8 @@ from typing import Optional
 import feedparser
 import requests
 from bs4 import BeautifulSoup
-from investement_guru.domain.documents.news import NewsDocument
-from investement_guru.application.crawlers.base import BaseCrawler
+from investment_guru.domain.documents.news import NewsDocument
+from investment_guru.application.crawlers.base import BaseCrawler
 
 logger = logging.getLogger(__name__)
 
@@ -14,14 +14,14 @@ logger = logging.getLogger(__name__)
 # Multiple feeds increase coverage; each entry is (source_name, url).
 # The crawler fetches all feeds and filters entries that mention the ticker.
 # ---------------------------------------------------------------------------
-RSS_FEEDS: list[tuple[str, str]] = [
-    ("Yahoo Finance", "https://finance.yahoo.com/news/rssindex"),
-    (
-        "Yahoo Finance Markets",
-        "https://finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US",
-    ),
-    ("Seeking Alpha", "https://seekingalpha.com/api/sa/combined/{ticker}.xml"),
-]
+# RSS_FEEDS: list[tuple[str, str]] = [
+#     ("Yahoo Finance", "https://finance.yahoo.com/news/rssindex"),
+#     (
+#         "Yahoo Finance Markets",
+#         "https://finance.yahoo.com/rss/2.0/headline?s={ticker}&region=US&lang=en-US",
+#     ),
+#     ("Seeking Alpha", "https://seekingalpha.com/api/sa/combined/{ticker}.xml"),
+# ]
 
 # Feeds that accept a ticker symbol in the URL (use {ticker} placeholder)
 TICKER_SPECIFIC_FEEDS: list[tuple[str, str]] = [

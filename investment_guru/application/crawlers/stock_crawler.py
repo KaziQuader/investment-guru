@@ -1,6 +1,6 @@
 import yfinance as yf
-from investement_guru.domain.documents.stocks import StockDocument
-from investement_guru.application.crawlers.base import BaseCrawler
+from investment_guru.domain.documents.stocks import StockDocument
+from investment_guru.application.crawlers.base import BaseCrawler
 
 
 class StockCrawler(BaseCrawler):

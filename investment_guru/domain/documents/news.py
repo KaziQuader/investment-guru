@@ -2,7 +2,7 @@ from typing import Optional
 from pydantic import Field
 from datetime import datetime
 from beanie import Document
-from investement_guru.domain.types import DataCategory
+from investment_guru.domain.types import DataCategory
 
 
 class NewsDocument(Document):

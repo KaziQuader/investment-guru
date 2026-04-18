@@ -1,0 +1,37 @@
+tickers:
+  # Big Tech
+  - AAPL
+  - MSFT
+  - GOOGL
+  - NVDA
+  - META
+  - AMZN
+
+  # Finance
+  - JPM
+  - GS
+  - BAC
+
+  # Healthcare
+  - JNJ
+  - PFE
+  - UNH
+
+  # Energy
+  - XOM
+  - CVX
+
+  # Consumer
+  - TSLA
+  - WMT
+  - MCD
+
+  # Semiconductors
+  - AMD
+  - INTC
+  - TSM
+
+  # ETFs for market context
+  - SPY
+  - QQQ
+  - VIX

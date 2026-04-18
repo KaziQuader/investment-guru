@@ -1,12 +1,12 @@
 from investment_guru.domain.types import DataCategory
 from datetime import datetime
-from typing import Optional
-from beanie import Document
+from typing import Optional, Annotated
+from beanie import Document, Indexed
 from pydantic import Field
 
 
 class StockDocument(Document):
-    ticker: str
+    ticker: Annotated[str, Indexed(unique=True)]
     company_name: str
     sector: Optional[str] = None
     industry: Optional[str] = None
@@ -49,3 +49,10 @@ class StockDocument(Document):
 
     class Settings:
         name = DataCategory.STOCKS
+        use_revision = True
+
+    # Used by BaseCrawler.save() to determine upsert behaviour:
+    #   'replace' → update the existing document in-place (daily refresh)
+    #   'skip'    → do not overwrite if a match already exists
+    upsert_fields: list[str] = ["ticker"]
+    upsert_mode: str = "replace"

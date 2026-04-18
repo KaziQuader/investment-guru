@@ -18,5 +18,5 @@ class NewsDocument(Document):
         name = DataCategory.NEWS
         use_revision = True
 
-    upsert_fields: list[str] = ["url"]
-    upsert_mode: str = "skip"
+        upsert_fields: list[str] = ["url"]
+        upsert_mode: str = "skip"

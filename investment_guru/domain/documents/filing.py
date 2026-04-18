@@ -20,5 +20,5 @@ class FilingDocument(Document):
         name = DataCategory.FILINGS
         use_revision = True
 
-    upsert_fields: list[str] = ["accession_number"]
-    upsert_mode: str = "skip"
+        upsert_fields: list[str] = ["accession_number"]
+        upsert_mode: str = "skip"

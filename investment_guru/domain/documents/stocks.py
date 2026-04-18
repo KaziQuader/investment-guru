@@ -51,8 +51,8 @@ class StockDocument(Document):
         name = DataCategory.STOCKS
         use_revision = True
 
-    # Used by BaseCrawler.save() to determine upsert behaviour:
-    #   'replace' → update the existing document in-place (daily refresh)
-    #   'skip'    → do not overwrite if a match already exists
-    upsert_fields: list[str] = ["ticker"]
-    upsert_mode: str = "replace"
+        # Used by BaseCrawler.save() to determine upsert behaviour:
+        #   'replace' → update the existing document in-place (daily refresh)
+        #   'skip'    → do not overwrite if a match already exists
+        upsert_fields: list[str] = ["ticker"]
+        upsert_mode: str = "replace"

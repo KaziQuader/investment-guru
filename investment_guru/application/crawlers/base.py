@@ -24,8 +24,8 @@ class BaseCrawler(ABC):
         Upsert documents into MongoDB smoothly.
 
         Uses the document model's `upsert_fields` directly to look up
-        an existing document, and `upsert_mode` to decide whether to 
-        'replace' (useful for updating daily stock info) or 'skip' 
+        an existing document, and `upsert_mode` to decide whether to
+        'replace' (useful for updating daily stock info) or 'skip'
         (useful for avoiding duplicate news or SEC filings).
 
         Returns
@@ -36,13 +36,16 @@ class BaseCrawler(ABC):
         if not documents:
             return 0
 
-        saved = 0
-        upsert_mode = getattr(self.model, "upsert_mode", "skip")
-        upsert_fields = getattr(self.model, "upsert_fields", [])
+        settings = getattr(self.model, "Settings", None)
+        upsert_mode = getattr(settings, "upsert_mode", "skip")
+        upsert_fields = getattr(settings, "upsert_fields", [])
 
         if not upsert_fields:
-            logger.warning("No upsert_fields on %s, default saving", self.model.__name__)
+            logger.warning(
+                "No upsert_fields on %s.Settings, default saving", self.model.__name__
+            )
 
+        saved = 0
         for doc in documents:
             if not upsert_fields:
                 await doc.save()
@@ -50,7 +53,7 @@ class BaseCrawler(ABC):
                 continue
 
             query = {field: getattr(doc, field) for field in upsert_fields}
-            
+
             existing_doc = await self.model.find_one(query)
 
             if existing_doc:
@@ -73,6 +76,9 @@ class BaseCrawler(ABC):
                     pass
 
         logger.info(
-            "[%s] Saved %d / %d documents", self.get_source_name(), saved, len(documents)
+            "[%s] Saved %d / %d documents",
+            self.get_source_name(),
+            saved,
+            len(documents),
         )
         return saved

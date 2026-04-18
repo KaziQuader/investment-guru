@@ -20,7 +20,7 @@ FILING_TYPES: dict[str, str] = {
 }
 
 # How many of each filing type to fetch per ticker
-FILINGS_PER_TYPE: int = 3
+FILINGS_PER_TYPE: int = 1
 
 
 class SECFilingCrawler(BaseCrawler):
@@ -68,7 +68,7 @@ class SECFilingCrawler(BaseCrawler):
             dl = Downloader(
                 company_name="InvestmentGuru",
                 email_address=self._company_email,
-                save_path=tmpdir,
+                download_folder=tmpdir,
             )
 
             for filing_type in FILING_TYPES:
@@ -146,6 +146,16 @@ class SECFilingCrawler(BaseCrawler):
         company_name = self._extract_company_name(raw_content, ticker)
         edgar_url = self._accession_to_url(ticker, accession_number)
 
+        # Protect against MongoDB's 16MB BSON Document limit
+        # ~10,000,000 chars is safely below the limit
+        MAX_CHARS = 10_000_000
+        if len(cleaned) > MAX_CHARS:
+            logger.warning(
+                "Truncating filing %s (size: %d chars) to fit MongoDB limit",
+                accession_number, len(cleaned)
+            )
+            cleaned = cleaned[:MAX_CHARS] + "\n...[TRUNCATED TO FIT DB LIMIT]..."
+
         return FilingDocument(
             ticker=ticker,
             company_name=company_name,
@@ -193,7 +203,13 @@ class SECFilingCrawler(BaseCrawler):
         """
         Strip HTML/SGML markup and normalise whitespace.
         """
-        soup = BeautifulSoup(raw, "html.parser")
+        # lxml is highly resilient to broken SGML or binary garbage 
+        # embedded in older SEC full submission text files
+        try:
+            soup = BeautifulSoup(raw, "lxml")
+        except Exception as e:
+            logger.warning("BeautifulSoup lxml parser failed, falling back to basic strip: %s", e)
+            return raw[:10000] # Return safe slice if hopelessly corrupted
 
         # Remove script, style, and XBRL metadata blocks entirely
         for tag in soup(["script", "style", "ix:hidden", "xbrli:xbrl"]):

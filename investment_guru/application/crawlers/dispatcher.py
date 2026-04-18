@@ -29,7 +29,7 @@ class CrawlerDispatcher:
         self._crawlers[source_name] = crawler
 
     def get(self, source_name: str) -> BaseCrawler:
-        crawler = self._crawlers.get(source_name)
-        if crawler is None:
+        crawler_cls = self._crawlers.get(source_name)
+        if crawler_cls is None:
             raise ValueError(f"Crawler {source_name} not registered")
-        return crawler
+        return crawler_cls()

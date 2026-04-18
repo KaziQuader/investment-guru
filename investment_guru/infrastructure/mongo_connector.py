@@ -57,6 +57,9 @@ class MongoDBConnector:
                 "Add it to your .env file or environment variables."
             )
 
+        # Workaround for modern PyMongo/Motor + Beanie compatibility bug
+        # Beanie attempts to execute client.append_metadata which doesn't exist
+        AsyncIOMotorClient.append_metadata = lambda self, *args, **kwargs: None
         _client = AsyncIOMotorClient(mongodb_uri)
         await init_beanie(
             database=_client[database_name],
